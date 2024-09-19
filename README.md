@@ -17,9 +17,9 @@
 - 基于Reactor模式异步事件驱动架构、BlueBell自定义高性能异步通信协议，高性能高并发低内存占用💪。
 - 原生支持集群模式，采用主从节点，实现Ketama - go一致性hash协议，无感负载均衡，分片存储。
 - 基于Docker容器化构建部署，天然支持云原生环境☁️。
-- 打包大小仅10MB，开箱即用🎉。
 - 由字节跳动sonic提供序列化支持 [https://github.com/bytedance/sonic](https://github.com/bytedance/sonic)。
 - 由gnet提供网络库支持 [https://github.com/panjf2000/gnet](https://github.com/panjf2000/gnet)。
+- 打包大小仅10MB，开箱即用🎉。
 
 ## 性能测试
 
