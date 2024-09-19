@@ -34,7 +34,7 @@ cd huacache
 docker build -t huacache .
 ```
 ```shell
-docker run -itd -p 4160:4160 huacache
+docker run -itd -p 9000:9000 huacache
 ```
 ### 源码编译
 提供golang环境即可编译运行，要求go版本>=1.23.0
