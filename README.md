@@ -41,6 +41,6 @@ docker run -itd -p 9000:9000 huacache
 提供golang环境即可编译运行，要求go版本>=1.23.0。
 
 ### Golang客户端
-请移步 [https://github.com/huahuoao/huacache - go](https://github.com/huahuoao/huacache - go)。
+请移步 https://github.com/huahuoao/huacache-go
 
 ### Java客户端（待开发）😉
