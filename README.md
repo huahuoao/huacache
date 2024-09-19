@@ -32,7 +32,7 @@ git clone https://github.com/huahuoao/huacache
 cd huacache
 ```
 ```shell
-docker build -t huacache.
+docker build -t huacache .
 ```
 ```shell
 docker run -itd -p 9000:9000 huacache
