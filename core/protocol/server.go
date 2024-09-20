@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io"
-	"log" // 使用标准库的 log
+	"log"
 	"sync/atomic"
 
 	huacache "github.com/huahuoao/huacache/core"
