@@ -28,7 +28,7 @@ func NewTCPPool(wg *sync.WaitGroup) {
 	flag.IntVar(&port, "port", 9000, "--port 9000")
 	flag.BoolVar(&multicore, "multicore", false, "--multicore=true")
 	flag.Parse()
-	ss := protocol.NewBluebellServer("tcp", "localhost:9000", true)
+	ss := protocol.NewBluebellServer("tcp", "0.0.0.0:9000", true)
 	err := gnet.Run(ss, ss.Network+"://"+ss.Addr, gnet.WithMulticore(multicore))
 	logging.Infof("server exits with error: %v", err)
 }
