@@ -1,3 +1,30 @@
+Skip to content
+Navigation Menu
+huahuoao
+/
+huacache
+
+Type / to search
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+Breadcrumbshuacache
+/Dockerfile
+Latest commit
+ 
+History
+File metadata and controls
+
+Code
+
+Blame
+35 lines (24 loc) · 670 Bytes
 # Stage 1: Build the Go application
 FROM golang:alpine AS builder
 
@@ -33,3 +60,14 @@ COPY --from=builder /build/huacache /app/huacache
 
 # 设置容器启动时执行的命令
 CMD ["./huacache"]
+Footer
+© 2024 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact
+Manage cookies
+Do not share my personal information
