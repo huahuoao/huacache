@@ -1,6 +1,11 @@
 package lru
 
-import "testing"
+import (
+	"fmt"
+	"sync"
+	"testing"
+	"time"
+)
 
 type String string
 
@@ -57,4 +62,21 @@ func TestOnEvicted(t *testing.T) {
 	if now_string != expect {
 		t.Fatalf("Call OnEvivted failed")
 	}
+}
+func single1(lru *Cache, wg *sync.WaitGroup) {
+	defer wg.Done()
+	for i := 0; i < 1000; i++ {
+		lru.Add(randomString(100), String(randomString(10)))
+	}
+}
+func TestSet(t *testing.T) {
+	lru := New(8*1024*1024*1024, nil)
+	start := time.Now()
+	var wg sync.WaitGroup
+	wg.Add(8)
+	for i := 0; i < 8; i++ {
+		go single1(lru, &wg)
+	}
+	wg.Wait()
+	fmt.Printf("%v", time.Since(start))
 }

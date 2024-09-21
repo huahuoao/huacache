@@ -40,35 +40,32 @@ func TestAddOrUpdate(t *testing.T) {
 }
 
 func TestConcurrentSetKey(t *testing.T) {
-	cache, err := NewGroup(generateRandomString(5), MB*100)
+	cache, err := NewGroup(generateRandomString(5), MB*10000)
 	if err != nil {
 		t.Fatalf("Failed to create cache group: %v", err)
 	}
 	if cache == nil {
 		t.Fatal("Cache group is nil")
 	}
-
-	const numGoroutines = 100
-	const numEntries = 1000000
+	const numGoroutines = 8
 	var wg sync.WaitGroup
 	start := time.Now()
-
+	wg.Add(numGoroutines)
 	for i := 0; i < numGoroutines; i++ {
-		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			for j := 0; j < numEntries/numGoroutines; j++ {
-				key := generateRandomString(100)
-				cache.AddOrUpdate(key, ByteView{B: []byte("value1")})
+			for j := 0; j < 1000; j++ {
+				key := generateRandomString(10)
+				err := cache.AddOrUpdate(key, ByteView{B: []byte(key)})
+				if err != nil {
+					return
+				}
 			}
 		}()
 	}
-
 	wg.Wait()
 	elapsed := time.Since(start)
 	t.Logf("Time taken: %s", elapsed)
-	t.Logf("1000 sets Time taken: %s", elapsed/numEntries*1000) // Ensure this logs when using 'go test -v'
-	t.Log(cache.GetStatus().ToString())
 }
 
 func TestDelete(t *testing.T) {

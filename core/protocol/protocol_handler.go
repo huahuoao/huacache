@@ -52,21 +52,6 @@ func HandleDeleteKey(request *BluebellRequest) *BluebellResponse {
 	}
 }
 
-func HandleListKeys(request *BluebellRequest) *BluebellResponse {
-	group, _ := huacache.GetGroup(request.Group)
-	keys, err := group.Keys()
-	if err != nil {
-		return &BluebellResponse{
-			Code:   "500",
-			Result: []byte("failed to list keys"),
-		}
-	}
-	return &BluebellResponse{
-		Code:   "200",
-		Result: []byte(fmt.Sprintf("%v", keys)),
-	}
-}
-
 func HandleNewGroup(request *BluebellRequest) *BluebellResponse {
 	size, err := strconv.ParseInt(request.Key, 10, 64)
 	if err != nil {

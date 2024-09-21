@@ -61,8 +61,6 @@ func (p *HTTPPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		p.handleListGroupsAction(w)
 	case NEW_GROUP:
 		p.handleNewGroupAction(w, r)
-	case GET_KEYS:
-		p.handleKeysAction(r, w)
 	default:
 		http.Error(w, "not supported action: "+action, http.StatusBadRequest)
 	}
@@ -141,33 +139,6 @@ func (p *HTTPPool) handleListGroupsAction(w http.ResponseWriter) {
 	if err := json.NewEncoder(w).Encode(groups); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-}
-
-func (p *HTTPPool) handleKeysAction(r *http.Request, w http.ResponseWriter) {
-	groupName := r.FormValue("group")
-	group, err := GetGroup(groupName)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	if group == nil {
-		http.Error(w, "group not found", http.StatusOK)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	keys, err := group.Keys()
-	if err != nil {
-		http.Error(w, "failed to get keys from group", http.StatusInternalServerError)
-		return
-	}
-	response, err := json.Marshal(keys)
-	if err != nil {
-		http.Error(w, "failed to serialize keys to JSON", http.StatusInternalServerError)
-		return
-	}
-	// Write the JSON response
-	w.Write(response)
 }
 
 func (p *HTTPPool) handleNewGroupAction(w http.ResponseWriter, r *http.Request) {

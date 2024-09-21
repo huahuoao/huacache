@@ -36,12 +36,15 @@ func NewGroup(name string, cacheBytes int64) (*Group, error) {
 	if ok {
 		return nil, fmt.Errorf("group %s already exists", name)
 	}
-
+	lruCache, err := lru.NewShardingLRU(SHARD_NUM, cacheBytes)
+	if err != nil {
+		return nil, err
+	}
 	g := &Group{
 		name: name,
 		mainCache: cache{
 			cacheBytes: cacheBytes,
-			lru:        lru.New(cacheBytes, nil), // Initialize lru here
+			lru:        lruCache, // Initialize lru here
 		},
 	}
 	groups[name] = g
@@ -72,9 +75,6 @@ func (g *Group) Get(key string) (ByteView, error) {
 }
 
 func (g *Group) AddOrUpdate(key string, value ByteView) error {
-	if key == "" {
-		return fmt.Errorf("key is required")
-	}
 	return g.mainCache.add(key, value)
 }
 
@@ -85,10 +85,11 @@ func (g *Group) Delete(key string) error {
 	err := g.mainCache.delete(key)
 	return err
 }
-func (g *Group) Keys() ([]string, error) {
 
-	return g.mainCache.lru.Keys()
-}
+//func (g *Group) Keys() ([]string, error) {
+//
+//	return g.mainCache.lru.Keys()
+//}
 
 //Group Methods
 
@@ -120,18 +121,18 @@ func ListGroups() ([]string, error) {
 	return names, nil
 }
 
-func (g *Group) GetStatus() *GroupStatus {
-	mu.RLock()
-	defer mu.RUnlock()
-	maxbytes, nbytes, keyCount := g.mainCache.lru.GetMemoryUsedSituation()
-	gs := &GroupStatus{
-		name:     g.name,
-		size:     maxbytes,
-		used:     nbytes,
-		keyCount: keyCount,
-	}
-	return gs
-}
+//func (g *Group) GetStatus() *GroupStatus {
+//	mu.RLock()
+//	defer mu.RUnlock()
+//	maxbytes, nbytes, keyCount := g.mainCache.lru.GetMemoryUsedSituation()
+//	gs := &GroupStatus{
+//		name:     g.name,
+//		size:     maxbytes,
+//		used:     nbytes,
+//		keyCount: keyCount,
+//	}
+//	return gs
+//}
 
 func (gs *GroupStatus) ToString() string {
 	// 将字节转换为MB

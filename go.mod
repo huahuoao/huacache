@@ -6,6 +6,7 @@ require (
 	github.com/bytedance/sonic v1.12.2
 	github.com/panjf2000/gnet v1.6.7
 	github.com/panjf2000/gnet/v2 v2.5.7
+	github.com/spaolacci/murmur3 v1.1.0
 )
 
 require (

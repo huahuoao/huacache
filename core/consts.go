@@ -20,4 +20,5 @@ const (
 
 const (
 	CONSISTENTHASH_VIRTUAL_NODE_NUM = 160
+	SHARD_NUM                       = 8
 )
