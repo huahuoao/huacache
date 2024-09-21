@@ -21,11 +21,14 @@
 - 由panjf2000/gnet提供网络库支持 [https://github.com/panjf2000/gnet](https://github.com/panjf2000/gnet)。
 - 打包大小仅10MB，开箱即用🎉。
 
-## 性能测试
-2024-0921
-huacache万次读写耗时平均10.5s
-redis万次读写耗时平均9.6s
-TODO： 优化底层数据结构存储
+## 更新日志
+### 2024-0921 v0.1.0
+- 项目更新
+  - 功能改进
+    - 采用双向链表+hash的LRU内存淘汰算法实现的初代单节点
+  - 性能数据
+    - huacache: 万次读写耗时平均10.5s
+    - redis: 万次读写耗时平均9.6s
 ## 快速入门
 ### Docker
 ```shell
