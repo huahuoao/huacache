@@ -1,10 +1,10 @@
 package main
 
 import (
-	"flag"
 	"log"
 	"net/http"
 	"sync"
+	"time"
 
 	huacache "github.com/huahuoao/huacache/core"
 	"github.com/huahuoao/huacache/core/protocol"
@@ -22,21 +22,21 @@ func NewHTTPPool(wg *sync.WaitGroup) {
 
 func NewTCPPool(wg *sync.WaitGroup) {
 	defer wg.Done()
-	var port int
-	var multicore bool
-	// Example command: go run server.go --port 9000 --multicore=true
-	flag.IntVar(&port, "port", 9000, "--port 9000")
-	flag.BoolVar(&multicore, "multicore", false, "--multicore=true")
-	flag.Parse()
 	ss := protocol.NewBluebellServer("tcp", "0.0.0.0:9000", true)
-	err := gnet.Run(ss, ss.Network+"://"+ss.Addr, gnet.WithMulticore(multicore))
+	options := []gnet.Option{
+		gnet.WithMulticore(true),               // 启用多核模式
+		gnet.WithReusePort(true),               // 启用端口重用
+		gnet.WithTCPKeepAlive(time.Minute * 5), // 启用 TCP keep-alive
+		gnet.WithReadBufferCap(2048 * 1024),
+		gnet.WithWriteBufferCap(2048 * 1024),
+	}
+	err := gnet.Run(ss, ss.Network+"://"+ss.Addr, options...)
 	logging.Infof("server exits with error: %v", err)
 }
 
 func main() {
 	var wg sync.WaitGroup
-	wg.Add(1) // 等待两个 goroutine
-	//	go NewHTTPPool(&wg)
+	wg.Add(1)
 	go NewTCPPool(&wg)
-	wg.Wait() // 等待所有 goroutine 完成
+	wg.Wait()
 }
