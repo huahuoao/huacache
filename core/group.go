@@ -3,7 +3,6 @@ package huacache
 import (
 	"errors"
 	"fmt"
-	"log"
 	"sync"
 
 	"github.com/huahuoao/huacache/core/lru"
@@ -67,7 +66,6 @@ func (g *Group) Get(key string) (ByteView, error) {
 	}
 
 	if v, ok := g.mainCache.get(key); ok {
-		log.Println("[GeeCache] hit")
 		return v, nil
 	}
 	return ByteView{}, fmt.Errorf("key not found in cache")
