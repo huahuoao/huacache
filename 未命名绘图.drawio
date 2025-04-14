@@ -1,70 +1,49 @@
-<mxfile host="app.diagrams.net">
-    <diagram name="C/S架构系统设计">
-        <mxGraphModel dx="1422" dy="792" grid="1" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100">
-            <root>
-                <mxCell id="0"/>
-                <mxCell id="1" parent="0"/>
-                
-                <!-- 核心存储节点 -->
-                <mxCell id="core_storage" value="<b>核心存储节点</b><br>LSM-Tree架构<br>• MemTable写入优化<br>• SSTable分层存储<br>• Golang并发控制" 
-                        style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" 
-                        vertex="1" parent="1">
-                    <mxGeometry x="400" y="300" width="240" height="120"/>
-                </mxCell>
-                
-                <!-- 客户端 -->
-                <mxCell id="client" value="<b>客户端</b><br>Golang网络库实现<br>• 高并发请求处理<br>• 智能请求路由<br>• 负载均衡策略" 
-                        style="shape=cylinder;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" 
-                        vertex="1" parent="1">
-                    <mxGeometry x="100" y="100" width="160" height="80"/>
-                </mxCell>
-                
-                <!-- 服务端 -->
-                <mxCell id="server" value="<b>服务端</b><br>gnet框架驱动<br>• 自定义通信协议<br>• 事件驱动架构<br>• 动态负载管理" 
-                        style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" 
-                        vertex="1" parent="1">
-                    <mxGeometry x="700" y="100" width="160" height="80"/>
-                </mxCell>
-                
-                <!-- 服务注册中心 -->
-                <mxCell id="etcd" value="<b>服务注册中心</b><br>etcd组件<br>• 服务发现机制<br>• 健康状态监控<br>• 动态配置更新" 
-                        style="shape=ellipse;whiteSpace=wrap;html=fillColor=#dae8fc;strokeColor=#6c8ebf;" 
-                        vertex="1" parent="1">
-                    <mxGeometry x="400" y="50" width="160" height="80"/>
-                </mxCell>
-                
-                <!-- 数据流向 -->
-                <mxCell id="conn1" value="" style="endArrow=classic;html=1;strokeWidth=2;" 
-                        edge="1" parent="1" source="client" target="core_storage">
-                    <mxGeometry width="50" relative="1" as="geometry">
-                        <mxPoint x="180" y="140" as="sourcePoint"/>
-                        <mxPoint x="400" y="300" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                
-                <mxCell id="conn2" value="" style="endArrow=classic;html=1;strokeWidth=2;" 
-                        edge="1" parent="1" source="server" target="core_storage">
-                    <mxGeometry width="50" relative" as="geometry">
-                        <mxPoint x="780" y="140" as="sourcePoint"/>
-                        <mxPoint x="640" y="300" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                
-                <mxCell id="conn3" value="服务注册" style="endArrow=classic;html=1;dashed=1;" 
-                        edge="1" parent="1" source="etcd" target="client">
-                    <mxGeometry width="50" relative="1" as="geometry">
-                        <mxPoint x="480" y="50" as="sourcePoint"/>
-                        <mxPoint x="260" y="100" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                
-                <mxCell id="conn4" value="服务发现" style="endArrow=classic;html=1;dashed=1;" 
-                        edge="1" parent="1" source="etcd" target="server">
-                    <mxGeometry width="50" relative="1" as="geometry">
-                        <mxPoint x="480" y="130" as="sourcePoint"/>
-                        <mxPoint x="860" y="100" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-            </mxGraphModel>
-        </diagram>
-    </mxfile>
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" version="26.2.9">
+  <diagram name="第 1 页" id="G2JwTAoq0FuLVn8FJdYn">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="核心存储节点&#xa;LSM-Tree架构&#xa;• MemTable写入优化&#xa;• SSTable分层存储&#xa;• Golang并发控制" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="8" y="453" width="209" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="客户端&#xa;Golang网络库实现&#xa;• 高并发请求处理&#xa;• 智能请求路由&#xa;• 负载均衡策略" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="87" y="676" width="189" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="服务端&#xa;gnet框架驱动&#xa;• 自定义通信协议&#xa;• 事件驱动架构&#xa;• 动态负载管理" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="20" y="231" width="185" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="服务注册中心&#xa;etcd组件&#xa;• 服务发现机制&#xa;• 健康状态监控&#xa;• 动态配置更新" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="97" y="8" width="169" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="请求" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.25;entryY=0;" edge="1" parent="1" source="2" target="3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="112" y="639" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7" value="请求" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="4" target="2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8" value="服务注册" style="curved=1;startArrow=none;endArrow=block;exitX=0.78;exitY=1;entryX=0.75;entryY=0;" edge="1" parent="1" source="5" target="3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="252" y="194" />
+              <mxPoint x="252" y="639" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9" value="服务发现" style="curved=1;startArrow=none;endArrow=block;exitX=0.22;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="5" target="4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="112" y="194" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
